@@ -81,12 +81,12 @@ void Plot_times(TString path) {
 
 void Analysis() {
     
-    // TString path_HV("./HV78.csv");
+    // TString path_HV("./Data/HV78.csv");
     // Plot_HV(path_HV);
-    // TString path_Thr("./Thres78.csv");
+    // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("../Calibration/R3_data_2.csv");
+    TString path_times("./Data/R3_data_2.csv");
     Plot_times(path_times);
     
 }
