@@ -53,12 +53,40 @@ void Plot_Thr(TString path) {
     leg->Draw("SAME");
 }
 
+void Plot_times(TString path) {
+    gStyle->SetOptFit(1111);
+    
+    TTree* t = new TTree("t", "Tree");
+    t->ReadFile(path, "N_event/D:t_trig:tP1:tP2:tP3");
+    
+    TH1F* hP1 = new TH1F("hP1", "times in P1", 100, 0., 3500.);
+    t->Draw("tP3 >> hP1");
+
+    hP1->SetTitle("Times in P1; time (ns); Counts");
+    hP1->GetXaxis()->SetRange(0.,4000.);
+    hP1->SetMaximum(400);
+    
+    TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
+    f_exp->SetParNames("A","tau","b");
+    f_exp->SetParameters(300, 2200, 0.5);
+    
+    hP1->Fit("f_exp", "", "", 200, 1600);
+    
+    TCanvas* c = new TCanvas("c", "TIMES");
+    c->cd();
+    hP1->Draw();
+    
+}
+
 
 void Analysis() {
     
-    TString path_HV("./HV78.csv");
+    // TString path_HV("./HV78.csv");
     // Plot_HV(path_HV);
-    TString path_Thr("./Thres78.csv");
-    Plot_Thr(path_Thr);
+    // TString path_Thr("./Thres78.csv");
+    // Plot_Thr(path_Thr);
+    
+    TString path_times("../Calibration/R3_data_2.csv");
+    Plot_times(path_times);
     
 }
