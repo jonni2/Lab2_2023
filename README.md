@@ -1,11 +1,11 @@
 # Laboratory of Nuclear and Subnuclear Physics 2
 Material for data analysis for Lab2 course of 2023.
 
-Experimental apparatus:
- ------------	P3
- ------------	P2
-%%%%%%%%%%%%%%	Fe
- ------------	P1
+Experimental apparatus: <br />
+ ------------	P3 <br />
+ ------------	P2 <br />
+%%%%%%%%%%%%%%	Fe <br />
+ ------------	P1 <br />
 
 Things TO DO:
 - Calibration, in order to obtain the relation between clk ticks and ns, in order to finally FIT with exp the plots;
