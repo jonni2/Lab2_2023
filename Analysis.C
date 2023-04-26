@@ -129,7 +129,7 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("./Data/R3_background_2.csv");
+    TString path_times("./Data/R3_data_2.csv");
     Fit_bkg(path_times);
     
 }
