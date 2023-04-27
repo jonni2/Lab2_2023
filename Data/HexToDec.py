@@ -12,7 +12,10 @@ path = sys.argv[1]
 def HexToDec(s):
     l = []
     for el in s:
-        elDec = int(el, 16)
+        if isinstance(el, int):
+            elDec = int(str(el), 16)
+        else:
+            elDec = int(el, 16)
         l.append(elDec)
     s = pd.Series(data=l)
     return s
