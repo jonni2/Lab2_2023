@@ -125,14 +125,22 @@ void Fit_bkg(TString path) {
 void Calibration(TString path) {
     gStyle->SetOptFit(0011);
     
-    TGraphErrors* gr = new TGraphErrors(path, "%lg %lg %*lg %*lg %lg %lg", ",");
+    TGraphErrors* gr = new TGraphErrors(path, "%lg %*lg %lg %*lg %lg %*lg %lg", ",");
     
-    gr->SetTitle("Time calibration (P1); #Deltat oscilloscope (ns); DAQ clock (ticks)");
+    gr->SetTitle("Time calibration (P2); #Deltat oscilloscope (ns); DAQ clock (ticks)");
+    gr->SetMarkerStyle(7);
     
+    TF1* line = new TF1("line", "[0]*x+[1]");
+    line->SetParameters(0.25, -10.24);
+    line->SetParNames("m", "q");
+    gr->Fit(line);
     
-    gr->Fit("pol1");
+    TLegend* leg = new TLegend(.1, .7, .4, .9);
+    leg->AddEntry(gr, "Experimental points");
+    leg->AddEntry(line, "Linear fit Y = mX + q");
     
     gr->Draw("AP");
+    leg->Draw("SAME");
     
 }
 
