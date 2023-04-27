@@ -122,6 +122,20 @@ void Fit_bkg(TString path) {
     
 }
 
+void Calibration(TString path) {
+    gStyle->SetOptFit(0011);
+    
+    TGraphErrors* gr = new TGraphErrors(path, "%lg %lg %*lg %*lg %lg %lg", ",");
+    
+    gr->SetTitle("Time calibration (P1); #Deltat oscilloscope (ns); DAQ clock (ticks)");
+    
+    
+    gr->Fit("pol1");
+    
+    gr->Draw("AP");
+    
+}
+
 void Analysis() {
     
     // TString path_HV("./Data/HV78.csv");
@@ -129,7 +143,10 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("./Data/R3_data_2.csv");
-    Fit_bkg(path_times);
+    // TString path_times("./Data/R3_data_2.csv");
+    // Fit_bkg(path_times);
+    
+    TString path_calibration("./Data/Calibration/Calibration.csv");
+    Calibration(path_calibration);
     
 }
