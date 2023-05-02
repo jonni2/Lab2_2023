@@ -77,13 +77,13 @@ void Fit_sig(TString path) {
 
     hP1->SetTitle("Times in P1; time (ticks... FARE CALIBRAZ); Counts");
     hP1->GetXaxis()->SetRange(0.,4000.);
-    hP1->SetMaximum(400);
+    hP1->SetMaximum(1500);
     
     TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
     f_exp->SetParNames("A","tau","b");
     f_exp->SetParameters(300, 2200, 0.5);
     
-    hP1->Fit("f_exp", "", "", 200, 1600);
+    hP1->Fit("f_exp", "", "", 200, 2000);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
@@ -153,8 +153,11 @@ void Analysis() {
     
     // TString path_times("./Data/R3_data_2.csv");
     // Fit_bkg(path_times);
+
+	TString path_muon_data("./Data/Muon_Data/R3_data_4.csv");
+	Fit_sig(path_muon_data);
     
-    TString path_calibration("./Data/Calibration/Calibration.csv");
-    Calibration(path_calibration);
+    // TString path_calibration("./Data/Calibration/Calibration.csv");
+    // Calibration(path_calibration);
     
 }
