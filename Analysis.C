@@ -72,25 +72,25 @@ void Fit_sig(TString path) {
     TTree* t = new TTree("t", "Tree");
     t->ReadFile(path, "N_event/D:t_trig:tP1:tP2:tP3");
     
-    TH1F* hP1 = new TH1F("hP1", "times in P1", 100, 0., 3500.);
-    t->Draw("tP2 >> hP1");
+    TH1F* h = new TH1F("h", "times in P1", 100, 0., 3500.);
+    t->Draw("tP1 >> h");
 
-    hP1->SetTitle("Times in P1; time (ticks... FARE CALIBRAZ); Counts");
-    hP1->GetXaxis()->SetRange(0.,4000.);
-    hP1->SetMaximum(1500);
+    h->SetTitle("Times in P1; time (ticks... FARE CALIBRAZ); Counts");
+    h->GetXaxis()->SetLimits(0.,3200.);
+    h->SetMaximum(1600);
     
     TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
     f_exp->SetParNames("A","tau","b");
     f_exp->SetParameters(300, 2200, 0.5);
     
-    hP1->Fit("f_exp", "", "", 200, 2000);
+    h->Fit("f_exp", "", "", 200, 2000);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
-    hP1->Draw();
+    h->Draw();
     
-    TCanvas* c2 = new TCanvas("c2", "c2");
-    c2->cd();
+    // TCanvas* c2 = new TCanvas("c2", "c2");
+    // c2->cd();
     
 }
 
@@ -104,14 +104,16 @@ void Fit_bkg(TString path) {
     t->Draw("tP1 >> hP1");
 
     hP1->SetTitle("Times in P1; time (ticks... FARE CALIBRAZ); Counts");
-    hP1->GetXaxis()->SetRange(0.,4000.);
-    hP1->SetMaximum(400);
+    hP1->GetXaxis()->SetLimits(0.,3100.);
+    hP1->SetMaximum(100);
     
-    TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
-    f_exp->SetParNames("A","tau","b");
-    f_exp->SetParameters(300, 2200, 0.5);
+    // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
+    // f_exp->SetParNames("A","tau","b");
+    // f_exp->SetParameters(300, 2200, 0.5);
     
-    hP1->Fit("f_exp", "", "", 200, 1600);
+    // hP1->Fit("f_exp", "", "", 200, 1600);
+    
+    hP1->Fit("pol0", "", "", 0, 3000);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
@@ -125,9 +127,9 @@ void Fit_bkg(TString path) {
 void Calibration(TString path) {
     gStyle->SetOptFit(0011);
     
-    TGraphErrors* gr = new TGraphErrors(path, "%lg %*lg %lg %*lg %lg %*lg %lg", ",");
+    TGraphErrors* gr = new TGraphErrors(path, "%lg %*lg %*lg %lg %lg %*lg %*lg %lg", ",");
     
-    gr->SetTitle("Time calibration (P2); #Deltat oscilloscope (ns); DAQ clock (ticks)");
+    gr->SetTitle("Time calibration (P1); #Deltat oscilloscope (ns); DAQ clock (ticks)");
     gr->SetMarkerStyle(7);
     
     TF1* line = new TF1("line", "[0]*x+[1]");
@@ -151,13 +153,13 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    // TString path_times("./Data/R3_data_2.csv");
+    // TString path_times("./Data/Muon_Data/R3_background_2_clean.csv");
     // Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_4.csv");
-	Fit_sig(path_muon_data);
+	// TString path_muon_data("./Data/Muon_Data/R3_data_4_clean.csv");
+	// Fit_sig(path_muon_data);
     
-    // TString path_calibration("./Data/Calibration/Calibration.csv");
-    // Calibration(path_calibration);
+    TString path_calibration("./Data/Calibration/Calibration.csv");
+    Calibration(path_calibration);
     
 }
