@@ -43,7 +43,9 @@ int main(int argc, char* argv[]) {
         bool condition0 = (row[2] == "4095" && row[3] == "4095" && row[4] == "4095");
         // Remove all the lines WITHOUT 4095
         bool condition1 = (row[2] != "4095" && row[3] != "4095" && row[4] != "4095");
+        // Remove lines with BOTH P1, P2
         bool condition2 = (row[2] != "4095") && (row[3] != "4095") && (row[4] == "4095");
+        // Remove lines with BOTH P1, P3
         bool condition3 = (row[2] != "4095") && (row[3] == "4095") && (row[4] != "4095");
         // Accept only lines which DON'T have condition0 and condition1
         if(!(condition0 || condition1 || condition2 || condition3)) {
