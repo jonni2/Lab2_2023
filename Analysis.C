@@ -70,20 +70,23 @@ void Fit_sig(TString path) {
     gStyle->SetOptFit(1111);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "N_event/D:t_trig:tP1:tP2:tP3");
+    t->ReadFile(path, "tP1/D");
     
     TH1F* h = new TH1F("h", "times in P1", 100, 0., 3500.);
     t->Draw("tP1 >> h");
 
-    h->SetTitle("Times in P1; time (ticks... FARE CALIBRAZ); Counts");
-    h->GetXaxis()->SetLimits(0.,3200.);
-    h->SetMaximum(1600);
+    h->SetTitle("Times in P1; Time (ns); Counts");
+    //h->GetXaxis()->SetLimits(0.,3200.);
+    //h->SetMaximum(1600);
     
+    // Double_t R = 1.21;
+    //TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/[1])+(1/1.21)*e^(-x/[2]))+[3]");
+    // TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/2200)+(1/[1])*e^(-x/[2]))+[3]");
     TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
-    f_exp->SetParNames("A","tau","b");
-    f_exp->SetParameters(300, 2200, 0.5);
+    //f_exp->SetParNames("A","R", "#tau_{#mu^{-}}", "b");
+    f_exp->SetParameters(300, 2200, 5);
     
-    h->Fit("f_exp", "", "", 200, 2000);
+    h->Fit("f_exp", "", "", 1000, 3000);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
@@ -150,11 +153,11 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("./Data/Muon_Data/R3_background_P1.csv");
-    Fit_bkg(path_times);
+    // TString path_times("./Data/Muon_Data/R3_background_P1.csv");
+    // Fit_bkg(path_times);
 
-	// TString path_muon_data("./Data/Muon_Data/R3_data_4_clean.csv");
-	// Fit_sig(path_muon_data);
+	TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
+	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
     // Calibration(path_calibration);
