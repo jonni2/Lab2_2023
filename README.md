@@ -14,3 +14,7 @@ Things TO DO:
 	- extract from the FIT the parameters $\tau\_{\mu^-}$ (dirty), $\tau\_0$ (clean) and b (background);
 	- use R, Q from literature;
 	- derive $\Lambda\_c$ = $1/\tau\_c$ and compare it with the literature value.
+
+Questions:
+- What is value of R?
+- Is the fitting equation described above the correct one? 
