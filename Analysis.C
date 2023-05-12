@@ -72,21 +72,27 @@ void Fit_sig(TString path) {
     TTree* t = new TTree("t", "Tree");
     t->ReadFile(path, "tP1/D");
     
-    TH1F* h = new TH1F("h", "times in P1", 100, 0., 3500.);
+    TH1F* h = new TH1F("h", "times in P1", 100, 0., 16000.);
     t->Draw("tP1 >> h");
 
     h->SetTitle("Times in P1; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
-    // Double_t R = 1.21;
-    //TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/[1])+(1/1.21)*e^(-x/[2]))+[3]");
-    // TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/2200)+(1/[1])*e^(-x/[2]))+[3]");
-    TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
-    //f_exp->SetParNames("A","R", "#tau_{#mu^{-}}", "b");
-    f_exp->SetParameters(300, 2200, 5);
+    Double_t R = 1.21;
+
+    // COMPLETE double EXP FIT
+    TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/[1])+(1/1.21)*e^(-x/[2]))+[3]");
+    f_exp->SetParNames("A","#tau_{0}", "#tau_{#mu^{-}}", "b");
+    f_exp->SetParameters(300, 2200, 200, 10);
+    h->Fit("f_exp", "", "", 20, 12000);
     
-    h->Fit("f_exp", "", "", 1000, 3000);
+    // SINGLE EXP FIT
+    // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
+    // f_exp->SetParNames("A","#tau_{0}", "b");
+    // f_exp->SetParameters(300, 2200, 10);
+    // h->Fit("f_exp", "", "", 1000, 3000);
+    
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
