@@ -18,3 +18,6 @@ Things TO DO:
 Questions:
 - What is value of R?
 - Is the fitting equation described above the correct one? 
+
+Experiment information:
+- total duration of data acquisition: 1008896.663 s = 280.249 h = 11 d 16 h
