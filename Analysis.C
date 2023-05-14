@@ -68,14 +68,15 @@ void Plot_Thr(TString path) {
 
 void Fit_sig(TString path) {
     gStyle->SetOptFit(1111);
+    gStyle->SetOptStat(10);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "tP2/D");
+    t->ReadFile(path, "tP3/D");
     
-    TH1F* h = new TH1F("h", "times in P1", 80, 0., 16000.);
-    t->Draw("tP2 >> h");
+    TH1F* h = new TH1F("h", "times in P3", 80, 0., 16000.);
+    t->Draw("tP3 >> h");
 
-    h->SetTitle("Times in P2; Time (ns); Counts");
+    h->SetTitle("Decay time; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
@@ -96,10 +97,17 @@ void Fit_sig(TString path) {
     
     TMatrixD cor = r->GetCorrelationMatrix();
     cor.Print();
+
+    TLegend* leg = new TLegend(.1, .7, .4, .9);
+    leg->AddEntry(h, "Experimental data");
+    leg->AddEntry(f_exp, "Fit");
+
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
     h->Draw();
+
+    leg->Draw("Same");
     
     // TCanvas* c2 = new TCanvas("c2", "c2");
     // c2->cd();
@@ -165,7 +173,7 @@ void Analysis() {
     // TString path_times("./Data/Muon_Data/R3_background_P1.csv");
     // Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
+	TString path_muon_data("./Data/Muon_Data/R3_data_P3_ns.csv");
 	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
