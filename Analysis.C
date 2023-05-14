@@ -82,10 +82,10 @@ void Fit_sig(TString path) {
     Double_t R = 1.21;
 
     // COMPLETE double EXP FIT
-    TF1* f_exp = new TF1("f_exp", "[0]*(e^(-x/[1])+(1/1.21)*e^(-x/[2]))+[3]");
+    TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
     f_exp->SetParNames("A","#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(300, 2200, 200, 10);
-    h->Fit("f_exp", "", "", 20, 12000);
+    TFitResultPtr r = h->Fit("f_exp", "S", "", 50, 14000);
     
     // SINGLE EXP FIT
     // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
@@ -93,6 +93,8 @@ void Fit_sig(TString path) {
     // f_exp->SetParameters(300, 2200, 10);
     // h->Fit("f_exp", "", "", 1000, 3000);
     
+    TMatrixD cor = r->GetCorrelationMatrix();
+    cor.Print();
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
