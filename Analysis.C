@@ -70,12 +70,12 @@ void Fit_sig(TString path) {
     gStyle->SetOptFit(1111);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "tP1/D");
+    t->ReadFile(path, "tP2/D");
     
-    TH1F* h = new TH1F("h", "times in P1", 100, 0., 16000.);
-    t->Draw("tP1 >> h");
+    TH1F* h = new TH1F("h", "times in P1", 80, 0., 16000.);
+    t->Draw("tP2 >> h");
 
-    h->SetTitle("Times in P1; Time (ns); Counts");
+    h->SetTitle("Times in P2; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
@@ -83,15 +83,16 @@ void Fit_sig(TString path) {
 
     // COMPLETE double EXP FIT
     TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
-    f_exp->SetParNames("A","#tau_{0}", "#tau_{#mu^{-}}", "b");
-    f_exp->SetParameters(300, 2200, 200, 10);
-    TFitResultPtr r = h->Fit("f_exp", "S", "", 50, 14000);
+    f_exp->SetParNames("A", "#tau_{0}", "#tau_{#mu^{-}}", "b");
+    f_exp->SetParameters(1000, 2200, 200, 10);
+    TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 14000);
+    
     
     // SINGLE EXP FIT
     // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
     // f_exp->SetParNames("A","#tau_{0}", "b");
     // f_exp->SetParameters(300, 2200, 10);
-    // h->Fit("f_exp", "", "", 1000, 3000);
+    // TFitResultPtr r = h->Fit("f_exp", "S", "", 1000, 16000);
     
     TMatrixD cor = r->GetCorrelationMatrix();
     cor.Print();
@@ -164,7 +165,7 @@ void Analysis() {
     // TString path_times("./Data/Muon_Data/R3_background_P1.csv");
     // Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
+	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
 	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
