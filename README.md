@@ -16,8 +16,9 @@ Things TO DO:
 	- derive $\Lambda\_c$ = $1/\tau\_c$ and compare it with the literature value.
 
 Questions:
-- What is value of R?
-- Is the fitting equation described above the correct one? 
+- Is it ok R = 1.21?
+- Are the values of $`\Lambda_c`$ correct? (We don't obtain exactly $`4.4\times10^{6}`$ $`s^{-1}`$)?
+- Is the formula of $`G_{F}^2`$ correct (there was probably a mistake in a power of 2)?
 
 Experiment information:
 - total duration of data acquisition: 1008896.663 s = 280.249 h = 11 d 16 h
