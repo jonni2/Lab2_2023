@@ -67,16 +67,16 @@ void Plot_Thr(TString path) {
 }
 
 void Fit_sig(TString path) {
-    gStyle->SetOptFit(1111);
+    gStyle->SetOptFit(111);
     gStyle->SetOptStat(10);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "tP3/D");
+    t->ReadFile(path, "tP2/D");
     
-    TH1F* h = new TH1F("h", "times in P3", 80, 0., 16000.);
-    t->Draw("tP3 >> h");
+    TH1F* h = new TH1F("h", "times in P2", 80, 0., 16000.);
+    t->Draw("tP2 >> h");
 
-    h->SetTitle("Decay time; Time (ns); Counts");
+    h->SetTitle("Decay time in P_{middle}; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
@@ -84,9 +84,10 @@ void Fit_sig(TString path) {
 
     // COMPLETE double EXP FIT
     TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
+    
     f_exp->SetParNames("A", "#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(1000, 2200, 200, 10);
-    TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 14000);
+    TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 16000);
     
     
     // SINGLE EXP FIT
@@ -173,7 +174,7 @@ void Analysis() {
     // TString path_times("./Data/Muon_Data/R3_background_P1.csv");
     // Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_P3_ns.csv");
+	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
 	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
