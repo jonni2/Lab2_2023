@@ -133,7 +133,7 @@ void Fit_bkg(TString path) {
     
     // hP1->Fit("f_exp", "", "", 200, 1600);
     
-    h->Fit("pol0", "", "", 150, 16000);
+    h->Fit("pol0", "", "", 0, 16000);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
