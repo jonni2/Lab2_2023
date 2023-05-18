@@ -83,18 +83,12 @@ void Fit_sig(TString path) {
     Double_t R = 1.21;
 
     // COMPLETE double EXP FIT
-    // TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
+    TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
     
-    // f_exp->SetParNames("A", "#tau_{0}", "#tau_{#mu^{-}}", "b");
-    // f_exp->SetParameters(1000, 2200, 200, 10);
-    // TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 16000);
-
-    // double EXP FIT - Primavera
-    TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])*(1+(1/1.21)*e^(-x/[2])) + [3]");
-    f_exp->SetParNames("A", "#tau_{0}", "#tau_{c}", "b");
+    f_exp->SetParNames("A", "#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(1000, 2200, 200, 10);
     TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 16000);
-    
+
     // SINGLE EXP FIT
     // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
     // f_exp->SetParNames("A","#tau_{0}", "b");
@@ -106,7 +100,7 @@ void Fit_sig(TString path) {
 
     TLegend* leg = new TLegend(.1, .7, .4, .9);
     leg->AddEntry(h, "Experimental data");
-    leg->AddEntry(f_exp, "Fit: N_{0}e^{-t/#tau_{0}}#left(1+1/R e^{-t/#tau_{c}}#right)");
+    leg->AddEntry(f_exp, "Fit: N_{0}#left(e^{-t/#tau_{0}}+1/R e^{-t/#tau_{#mu^{-}}}#right)+b");
 
     
     TCanvas* c = new TCanvas("c", "TIMES");
@@ -176,11 +170,11 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("./Data/Muon_Data/R3_background_P3_ns.csv");
-    Fit_bkg(path_times);
+    //TString path_times("./Data/Muon_Data/R3_background_P2_ns.csv");
+    //Fit_bkg(path_times);
 
-	// TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
-	// Fit_sig(path_muon_data);
+	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
+	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
     // Calibration(path_calibration);
