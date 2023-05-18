@@ -4,7 +4,7 @@ Material for data analysis for Lab2 course of 2023.
 Experimental apparatus: <br />
  ------------	P3 <br />
  ------------	P2 <br />
-%%%%%%%%%%%	Fe <br />
+%%%%%%%%%%	Fe <br />
  ------------	P1 <br />
 
 Things TO DO:
