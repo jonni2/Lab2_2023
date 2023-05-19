@@ -109,9 +109,13 @@ void Fit_sig(TString path) {
 	f0->SetParameters(f_exp->GetParameter(0), f_exp->GetParameter(1));
 	f0->SetLineColor(kBlack);
 
-	TF1* fmu = new TF1("fmu", "[0]*e^(-x/[1])/1.21", 0, 16000);
+	TF1* fmu = new TF1("fmu", "[0]*(e^(-x/[1]))/1.21", 0, 16000);
 	fmu->SetParameters(f_exp->GetParameter(0), f_exp->GetParameter(2));
 	fmu->SetLineColor(kBlue);
+
+	TF1* fb = new TF1("fb", "[0]", 0, 16000);
+	fb->SetParameter(0, f_exp->GetParameter(3));
+	fb->SetLineColor(kGreen);
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
@@ -120,6 +124,7 @@ void Fit_sig(TString path) {
     f_exp->Draw("Same");
     f0->Draw("Same");
     fmu->Draw("Same");
+    fb->Draw("Same");
 
 
     leg->Draw("Same");
