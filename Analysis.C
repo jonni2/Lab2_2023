@@ -87,7 +87,7 @@ void Fit_sig(TString path) {
     
     f_exp->SetParNames("N_{0}", "#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(1000, 2200, 200, 10);
-    TFitResultPtr r = h->Fit("f_exp", "S", "", 150, 16000);
+    TFitResultPtr r = h->Fit("f_exp", "S", "", 200, 16000);
 
     // SINGLE EXP FIT
     // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
@@ -98,24 +98,15 @@ void Fit_sig(TString path) {
     TMatrixD cor = r->GetCorrelationMatrix();
     cor.Print();
 
-    TLegend* leg = new TLegend(.1, .7, .4, .9);
-    leg->AddEntry(h, "Experimental data");
-    leg->AddEntry(f_exp, "Fit: N_{0}#left(e^{-t/#tau_{0}}+1/R e^{-t/#tau_{#mu^{-}}}#right)+b");
-
-	std::cout << "Par0: " << f_exp->GetParameter(0) << '\n';
-
 	// DRAW the MULTIPLE exp FUNCTIONS
 	TF1* f0 = new TF1("f0", "[0]*e^(-x/[1])", 0, 16000);
 	f0->SetParameters(f_exp->GetParameter(0), f_exp->GetParameter(1));
-	f0->SetLineColor(kBlack);
+	f0->SetLineColor(kBlue + 2);
 
-	TF1* fmu = new TF1("fmu", "[0]*(e^(-x/[1]))/1.21", 0, 16000);
-	fmu->SetParameters(f_exp->GetParameter(0), f_exp->GetParameter(2));
-	fmu->SetLineColor(kBlue);
-
-	TF1* fb = new TF1("fb", "[0]", 0, 16000);
-	fb->SetParameter(0, f_exp->GetParameter(3));
-	fb->SetLineColor(kGreen);
+    TLegend* leg = new TLegend(.1, .7, .4, .9);
+    leg->AddEntry(h, "Experimental data");
+    leg->AddEntry(f_exp, "Fit: N_{0}#left(e^{-t/#tau_{0}}+1/R e^{-t/#tau_{#mu^{-}}}#right)+b");
+    leg->AddEntry(f0, "Free muon: N_{0}e^{-t/#tau_{0}}");
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
@@ -123,8 +114,6 @@ void Fit_sig(TString path) {
     h->Draw();
     f_exp->Draw("Same");
     f0->Draw("Same");
-    fmu->Draw("Same");
-    fb->Draw("Same");
 
 
     leg->Draw("Same");
