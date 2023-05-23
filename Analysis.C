@@ -71,19 +71,19 @@ void Fit_sig(TString path) {
     gStyle->SetOptStat(10);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "tP2/D");
+    t->ReadFile(path, "tP1/D");
     
-    TH1F* h = new TH1F("h", "times in P2", 80, 0., 16000.);
-    t->Draw("tP2 >> h");
+    TH1F* h = new TH1F("h", "times in P1", 80, 0., 16000.);
+    t->Draw("tP1 >> h");
 
-    h->SetTitle("Decay time in P_{middle}; Time (ns); Counts");
+    h->SetTitle("Decay time in P_{down}; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
     Double_t R = 1.21;
 
     // COMPLETE double EXP FIT
-    TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]");
+    TF1* f_exp = new TF1("f_exp", "[0] * (e^(-x/[1]) + (1/1.21) * e^(-x/[2])) +[3]", 0, 16000);
     
     f_exp->SetParNames("N_{0}", "#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(1000, 2200, 200, 10);
@@ -106,14 +106,14 @@ void Fit_sig(TString path) {
     TLegend* leg = new TLegend(.1, .7, .4, .9);
     leg->AddEntry(h, "Experimental data");
     leg->AddEntry(f_exp, "Fit: N_{0}#left(e^{-t/#tau_{0}}+1/R e^{-t/#tau_{#mu^{-}}}#right)+b");
-    leg->AddEntry(f0, "Free muon: N_{0}e^{-t/#tau_{0}}");
+    // leg->AddEntry(f0, "Free muon: N_{0}e^{-t/#tau_{0}}");
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
 
     h->Draw();
     f_exp->Draw("Same");
-    f0->Draw("Same");
+    // f0->Draw("Same");
 
 
     leg->Draw("Same");
@@ -155,7 +155,7 @@ void Calibration(TString path) {
     
     TGraphErrors* gr = new TGraphErrors(path, "%lg %*lg %*lg %lg %lg %*lg %*lg %lg", ",");
     
-    gr->SetTitle("Time calibration (P1); #Deltat oscilloscope (ns); DAQ clock (ticks)");
+    gr->SetTitle("Time calibration P_{up}; #Deltat oscilloscope (ns); DAQ clock (ticks)");
     gr->SetMarkerStyle(7);
     
     TF1* line = new TF1("line", "[0]*x+[1]");
@@ -182,7 +182,7 @@ void Analysis() {
     //TString path_times("./Data/Muon_Data/R3_background_P2_ns.csv");
     //Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
+	TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
 	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
