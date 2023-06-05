@@ -129,12 +129,12 @@ void Fit_bkg(TString path) {
     TTree* t = new TTree("t", "Tree");
     t->ReadFile(path, "tP2/D");
     
-    TH1F* h = new TH1F("h", "times in P2", 50, 0., 16000.);
+    TH1F* h = new TH1F("h", "times in P2", 40, 0., 16000.);
     t->Draw("tP2 >> h");
 
     h->SetTitle("Times in P2; time (ns); Counts");
     // hP1->GetXaxis()->SetLimits(0.,3100.);
-    // h->SetMaximum(100);
+    h->SetMinimum(0);
     
     // TF1* f_exp = new TF1("f_exp", "[0]*e^(-x/[1])+[2]");
     // f_exp->SetParNames("A","tau","b");
@@ -179,11 +179,11 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    //TString path_times("./Data/Muon_Data/R3_background_P2_ns.csv");
-    //Fit_bkg(path_times);
+    TString path_times("./Data/Muon_Data/R3_background_P2_ns.csv");
+    Fit_bkg(path_times);
 
-	TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
-	Fit_sig(path_muon_data);
+	//TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
+	//Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
     // Calibration(path_calibration);
