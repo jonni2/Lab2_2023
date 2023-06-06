@@ -71,12 +71,12 @@ void Fit_sig(TString path) {
     gStyle->SetOptStat(10);
     
     TTree* t = new TTree("t", "Tree");
-    t->ReadFile(path, "tP1/D");
+    t->ReadFile(path, "tP2/D");
     
-    TH1F* h = new TH1F("h", "times in P1", 80, 0., 16000.);
-    t->Draw("tP1 >> h");
+    TH1F* h = new TH1F("h", "times in P1", 80, 0., 16500.);
+    t->Draw("tP2 >> h");
 
-    h->SetTitle("Decay time in P_{down}; Time (ns); Counts");
+    h->SetTitle("Decay time in P_{middle}; Time (ns); Counts");
     //h->GetXaxis()->SetLimits(0.,3200.);
     //h->SetMaximum(1600);
     
@@ -87,6 +87,7 @@ void Fit_sig(TString path) {
     
     f_exp->SetParNames("N_{0}", "#tau_{0}", "#tau_{#mu^{-}}", "b");
     f_exp->SetParameters(1000, 2200, 200, 10);
+    
     TFitResultPtr r = h->Fit("f_exp", "S", "", 200, 16000);
 
     // SINGLE EXP FIT
@@ -99,27 +100,25 @@ void Fit_sig(TString path) {
     cor.Print();
 
 	// DRAW the MULTIPLE exp FUNCTIONS
+    
 	TF1* f0 = new TF1("f0", "[0]*e^(-x/[1])", 0, 16000);
 	f0->SetParameters(f_exp->GetParameter(0), f_exp->GetParameter(1));
-	f0->SetLineColor(kBlue + 2);
+	f0->SetLineColor(kBlack);
 
     TLegend* leg = new TLegend(.1, .7, .4, .9);
     leg->AddEntry(h, "Experimental data");
     leg->AddEntry(f_exp, "Fit: N_{0}#left(e^{-t/#tau_{0}}+1/R e^{-t/#tau_{#mu^{-}}}#right)+b");
-    // leg->AddEntry(f0, "Free muon: N_{0}e^{-t/#tau_{0}}");
+    leg->AddEntry(f0, "Free muon: N_{0}e^{-t/#tau_{0}}");
     
     TCanvas* c = new TCanvas("c", "TIMES");
     c->cd();
 
     h->Draw();
     f_exp->Draw("Same");
-    // f0->Draw("Same");
+    f0->Draw("Same");
 
 
     leg->Draw("Same");
-    
-    // TCanvas* c2 = new TCanvas("c2", "c2");
-    // c2->cd();
     
 }
 
@@ -179,11 +178,11 @@ void Analysis() {
     // TString path_Thr("./Data/Thres78.csv");
     // Plot_Thr(path_Thr);
     
-    TString path_times("./Data/Muon_Data/R3_background_P2_ns.csv");
-    Fit_bkg(path_times);
+    //TString path_times("./Data/Muon_Data/R3_background_P1_ns.csv");
+    // Fit_bkg(path_times);
 
-	//TString path_muon_data("./Data/Muon_Data/R3_data_P1_ns.csv");
-	//Fit_sig(path_muon_data);
+	TString path_muon_data("./Data/Muon_Data/R3_data_P2_ns.csv");
+	Fit_sig(path_muon_data);
     
     // TString path_calibration("./Data/Calibration/Calibration.csv");
     // Calibration(path_calibration);
