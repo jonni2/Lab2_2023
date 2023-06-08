@@ -5,3 +5,4 @@ Data/Muon_Data/R3_data_4.*
 Data/Muon_Data/Raw_Data/
 Data/Muon_Data/*.rar
 .DS_Store
+Plots/RooFit/
