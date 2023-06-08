@@ -22,6 +22,6 @@ Questions:
 
 Experiment information:
 - total duration of data acquisition: 1008896.663 s = 280.249 h = 11 d 16 h
-- total number of recorded events: 37149
+- total number of recorded events: 37149 => Rate = 0.0368 Hz
 - total duration of background acquisition: 15726.539 s = 4 h 22 min
-- total number of recorded background events: 1540
+- total number of recorded background events: 1540 => Rate = 0.0980 Hz
