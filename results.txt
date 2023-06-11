@@ -1,0 +1,12 @@
+Results obtained with RooFit:
+- P1: tau0 = (2169.6 +/- 49.0) ns
+      tau_mu = (365.0 +/- 31.4) ns
+      fsig = 0.910 +/- 0.005
+      
+- P2: tau0 = (2222.0 +/- 34.5) ns
+      tau_mu = (275.6 +/- 31.5) ns BUT MIGRAD and CONTOUR DON'T WORK
+      fsig = 0.967 +/- 0.003
+      
+- P3: tau0 = (2195.8 +/- 40.4) ns
+      tau_mu = (228.9 +/- 33.5) ns
+      fsig = 0.960 +/- 0.004
