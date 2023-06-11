@@ -37,6 +37,9 @@ int main(int argc, char* argv[]) {
     while(std::getline(header, word, ',')) {
             row.push_back(word);
     }
+    
+    // Define the CALIBRATION parameter q according to the
+    // HEADER: P1, P2 or P3 (m is always 4)
     if(row[2]=="tP1"){
         q = 40.97;  
         os << "tP1" << '\n';  
@@ -62,6 +65,7 @@ int main(int argc, char* argv[]) {
             row.push_back(word);
         }
 
+        // std::stod converts STRING to DOUBLE
         double tPn = std::stod(row[2]);
 
         tPn=(tPn*m)+q;
