@@ -48,9 +48,9 @@ void AnalysisBackground(TString path = "Data/Muon_Data/R3_background_P1_ns.csv")
 }
 
 // Function fitting
-void AnalysisRoofit(TString path = "Data/Muon_Data/R3_data_P1_ns.csv"){
+void AnalysisRoofit(TString path = "Data/Muon_Data/Reduced_Data/R3_data_P3_reduced.csv"){
 
-    RooRealVar t("t", "t", 0, 16000, "ns");
+    RooRealVar t("t", "t", 200, 16000, "ns");
     t.setBins(80);
 
     // Parameters of the model
