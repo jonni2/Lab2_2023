@@ -120,13 +120,13 @@ void AnalysisRoofit(TString path = "Data/Muon_Data/R3_data_P1_ns.csv"){
     
     
     RooPlot* frame2 = tau0.frame(RooFit::Title("Likelihood #tau_{0}"));
-    nll->plotOn(frame2);
+    nll->plotOn(frame2, RooFit::ShiftToZero());
     
     RooPlot* frame3 = tau_mu.frame(RooFit::Title("Likelihood #tau_{#mu}"));
-    nll->plotOn(frame3);
+    nll->plotOn(frame3, RooFit::ShiftToZero());
     
     RooPlot* frame4 = fsig.frame(RooFit::Title("Likelihood fsig"));
-    nll->plotOn(frame4);
+    nll->plotOn(frame4, RooFit::ShiftToZero());
     
     TCanvas* c3 = new TCanvas("c3", "c3");
     c3->Divide(3,1);
