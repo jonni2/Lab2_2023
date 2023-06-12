@@ -54,8 +54,11 @@ void AnalysisRoofit(TString path = "Data/Muon_Data/R3_data_P1_ns.csv"){
     t.setBins(80);
 
     // Parameters of the model
+    // tau0 = mean lifetime of muon decay
     RooRealVar tau0("tau0", "#tau_{0}", 2200, 2000, 2500);
     RooFormulaVar rate0("rate0", "rate", "-1/tau0", RooArgSet(tau0));
+    
+    // tau_mu = mean lifetime of negative muon capture
     RooRealVar tau_mu("tau_mu", "#tau_{#mu}", 200, 100, 500);
     RooFormulaVar rate_mu("rate_mu", "rate", "-1/tau_mu", RooArgSet(tau_mu));
     
@@ -70,11 +73,11 @@ void AnalysisRoofit(TString path = "Data/Muon_Data/R3_data_P1_ns.csv"){
     RooUniform bkg("bkg", "bkg", t);
 
 
-    // Using numbers of events
+    // Using numbers of events of sig and bkg
     // RooRealVar nsig("nsig", "nsig", 1000, 0, 16000);
     // RooRealVar nbkg("nbkg", "nbkg", 100, 0, 16000);
     
-    // Using fractions
+    // Using fraction of sig
     RooRealVar fsig("fsig", "fsig", 0.9, 0, 1);
     
     // Signal pdf = sum of the two exponentials
