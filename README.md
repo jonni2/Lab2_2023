@@ -1,6 +1,5 @@
 # Laboratory of Nuclear and Subnuclear Physics 2
 The aim of the experiment is to measure the muon half life $`\tau`$. To do this an apparatus has been built with an iron slab (Fe) 3 scintillators P1, P2, P3 each coupled to 2 PMTs (PhotoMultiplierTubes).
-Material for data analysis for Lab2 course of 2023.
 
 Experimental apparatus: <br />
  ------------	P3 <br />
@@ -8,7 +7,7 @@ Experimental apparatus: <br />
 %%%%%%%%%	Fe <br />
  ------------	P1 <br />
 
-Things TO DO:
+Things to do:
 - Analyze the background file R3\_background\_P123.csv and fit it with a pol0 to obtain the b parameter;
 - Analyze the CLEANED data by fitting mainly P1 and P2 (because they're the closest to Fe). We defined the following PROCEDURE:
 	- fit the exp data with: $`a\left(e^{-t/\tau_0}+\frac{1}{R}e^{-t/\tau_{\mu^-}}\right)+b`$;
