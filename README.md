@@ -1,5 +1,5 @@
 # Laboratory of Nuclear and Subnuclear Physics 2
-The aim of the experiment is to measure the muon half life $`\tau`$. To do this an apparatus has been built with an iron slab (Fe) 3 scintillators P1, P2, P3 each coupled to 2 PMTs (PhotoMultiplierTubes).
+The aim of the experiment is to measure the muon mean lifetime $`\tau`$. To do this an apparatus has been built with an iron slab (Fe) 3 scintillators P1, P2, P3 each coupled to 2 PMTs (PhotoMultiplierTubes).
 
 Experimental apparatus: <br />
  ------------	P3 <br />
