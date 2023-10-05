@@ -1,10 +1,11 @@
 # Laboratory of Nuclear and Subnuclear Physics 2
+The aim of the experiment is to measure the muon half life $`\tau`$. To do this an apparatus has been built with an iron slab (Fe) 3 scintillators P1, P2, P3 each coupled to 2 PMTs (PhotoMultiplierTubes).
 Material for data analysis for Lab2 course of 2023.
 
 Experimental apparatus: <br />
  ------------	P3 <br />
  ------------	P2 <br />
-%%%%%%%%%%	Fe <br />
+%%%%%%%%%	Fe <br />
  ------------	P1 <br />
 
 Things TO DO:
@@ -15,10 +16,6 @@ Things TO DO:
 	- use R, Q from literature;
 	- derive $\Lambda\_c$ = $1/\tau\_c$ and compare it with the literature value.
 
-Questions:
-- Is it ok R = 1.21?
-- Are the values of $`\Lambda_c`$ correct? (We don't obtain exactly $`4.4\times10^{6}`$ $`s^{-1}`$)?
-- Is the formula of $`G_{F}^2`$ correct (there was probably a mistake in a power of 2)?
 
 Experiment information:
 - total duration of data acquisition: 1008896.663 s = 280.249 h = 11 d 16 h
